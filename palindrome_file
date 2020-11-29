@@ -1,0 +1,23 @@
+#!/usr/bin/node
+
+let fs = require("fs");
+let Phrase = require("jvc-palindrome");
+
+let text = fs.readFileSync("phrases.txt", "utf-8");
+
+let palindromes = [];
+
+
+
+text.split("\n").forEach(function(line) {
+  let phrase = new Phrase(line);
+  if(phrase.palindrome()) {
+    console.log("Palindrome detected:", line);
+    palindromes.push(line);
+  }
+});
+
+
+fs.writeFile("palindrome.txt", palindromes.join("\n"), function(err) {
+  if (err) console.log(err);
+});
